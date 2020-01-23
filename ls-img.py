@@ -5,16 +5,16 @@ import shutil
 
 
 
-types = ["*.jpg", "*.png", "*.bmp", "*.jpeg"]
+types = ["*.jpg", "*.png", "*.bmp", "*.jpeg", "*.JPG"]
 files = []
 for k in types:
 	for m in glob.glob(k):
 		files.append(m)
+basewidth = 64
 
-basewidth = 32
 for l in files:
-	print("\n\n" + str(l))
-	img = Image.open(str(l))
+	print("\n\n" + l)
+	img = Image.open(l)
 	wpercent = (basewidth/float(img.size[0]))
 	hsize = int((float(img.size[1])*float(wpercent)))
 	img = img.resize((basewidth,hsize), Image.ANTIALIAS)
@@ -28,6 +28,6 @@ for l in files:
 				ra, ga, ba = img.getpixel((j, i))
 				rb, gb, bb = img.getpixel((j, i+1))
 			except IndexError:
-				quit()
+				continue
 			line += color('\u2584', fg=(rb, gb, bb), bg=(ra, ga, ba))
 		print(line)
